@@ -1,0 +1,19 @@
+.hosts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.hostsIconOnly {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.hostsIconOnly li + li:before {
+  content: '✕';
+  vertical-align: top 0.3em;
+  padding: 0 20px;
+  font-size: 1.3em;
+}

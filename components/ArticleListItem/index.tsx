@@ -1,19 +1,23 @@
+import { formatRichText } from '@/libs/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Article } from '@/libs/microcms';
 import styles from './index.module.css';
 import TagList from '../TagList';
+import HostList from '../HostList';
 import PublishedDate from '../Date';
+import Thumbnail from '../Thumbnail';
 
 type Props = {
   article: Article;
 };
 
 export default function ArticleListItem({ article }: Props) {
+  const publishedDay = 'thumbnail' + new Date(article.publishedAt).getDay();
   return (
     <li className={styles.list}>
       <Link href={`/articles/${article.id}`} className={styles.link}>
-        {article.thumbnail ? (
+        {/*article.thumbnail ? (
           <picture>
             <source
               type="image/webp"
@@ -40,14 +44,26 @@ export default function ArticleListItem({ article }: Props) {
             width={1200}
             height={630}
           />
-        )}
+        )*/}
+        <div className={`${styles.thumbnail} ${styles[publishedDay]}`}>
+          <HostList hosts={article.hosts} hasLink={false} iconOnly={true} />
+        </div>
         <dl className={styles.content}>
-          <dt className={styles.title}>{article.title}</dt>
-          <dd>
-            <TagList tags={article.tags} hasLink={false} />
-          </dd>
+          {/* <dt className={styles.title}>{article.title}</dt> */}
           <dd className={styles.date}>
             <PublishedDate date={article.publishedAt || article.createdAt} />
+          </dd>
+          <dd>
+            <HostList hosts={article.hosts} hasLink={false} />
+          </dd>
+          <dd
+            className={styles.description}
+            dangerouslySetInnerHTML={{
+              __html: `${formatRichText(article.description)}`,
+            }}
+          />
+          <dd>
+            <TagList tags={article.tags} hasLink={false} />
           </dd>
         </dl>
       </Link>

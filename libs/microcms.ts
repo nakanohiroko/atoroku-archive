@@ -13,11 +13,10 @@ export type Tag = {
 } & MicroCMSContentId &
   MicroCMSDate;
 
-// ライターの型定義
-export type Writer = {
+// ホストの型定義
+export type Host = {
   name: string;
-  profile: string;
-  image?: MicroCMSImage;
+  icon: string;
 } & MicroCMSContentId &
   MicroCMSDate;
 
@@ -26,9 +25,10 @@ export type Blog = {
   title: string;
   description: string;
   content: string;
-  thumbnail?: MicroCMSImage;
+  youtubeID: string;
+  //thumbnail?: MicroCMSImage;
   tags?: Tag[];
-  writer?: Writer;
+  hosts?: Host[];
 };
 
 export type Article = Blog & MicroCMSContentId & MicroCMSDate;
@@ -88,6 +88,31 @@ export const getTag = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client
     .getListDetail<Tag>({
       endpoint: 'tags',
+      contentId,
+      queries,
+    })
+    .catch(notFound);
+
+  return detailData;
+};
+
+// ホストの一覧を取得
+export const getHostList = async (queries?: MicroCMSQueries) => {
+  const listData = await client
+    .getList<Host>({
+      endpoint: 'hosts',
+      queries,
+    })
+    .catch(notFound);
+
+  return listData;
+};
+
+// ホストの詳細を取得
+export const getHost = async (contentId: string, queries?: MicroCMSQueries) => {
+  const detailData = await client
+    .getListDetail<Host>({
+      endpoint: 'hosts',
       contentId,
       queries,
     })

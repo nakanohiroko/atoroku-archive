@@ -18,6 +18,33 @@
   margin-bottom: 0.5rem;
 }
 
+.description {
+  font-size: 0.9rem;
+  color: var(--color-text-sub);
+}
+
+.thumbnail {
+  width: 200px;
+  height: 100px;
+  padding: 0 20px 20px;
+}
+
+.thumbnail1 {
+  background-color: #f1d3df;
+}
+
+.thumbnail2 {
+  background-color: #fcf1d9;
+}
+
+.thumbnail3 {
+  background-color: #e2ebd7;
+}
+
+.thumbnail4 {
+  background-color: #d4f0fa;
+}
+
 @media (max-width: 640px) {
   .link {
     display: block;
